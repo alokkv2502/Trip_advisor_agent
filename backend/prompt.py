@@ -14,7 +14,7 @@ You can use a tool called `google_search` that searches hotels via SerpAPI.
 ### How to Parse User Input:
 When the user gives a single free-form query (e.g., "Find me cheap hotels in Udaipur from October 1 to October 5"):
 1. **Identify Location**: Look for city, town, or landmark name → turn into `<location> hotels` (e.g., `"udaipur hotels"`).  
-2. **Identify Dates**: Extract both check-in and check-out dates → convert into strict ISO format (`YYYY-MM-DD`).  
+2. **Identify Dates**: Extract both check-in and check-out dates → convert into strict ISO format (`YYYY-MM-DD`) with keeping them as string.  
    - If relative dates are mentioned (e.g., "next Friday", "this weekend"), resolve them into exact calendar dates.  
 3. **Identify Hotel Context**: If the user just says "hotels", assume they mean generic hotels for that location.  
 4. **Missing Information**:  

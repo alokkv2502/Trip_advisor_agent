@@ -5,24 +5,21 @@ from typing import Dict, Any
 
 API_KEY = "c21f3689b93c5f7125e847008e584a3dd7a197600fe1cfda46e9b89c39237b1a"
 
-def google_search(query: str,check_in_date,check_out_date) -> Dict[str, Any]:
+def google_search(location: str, check_in_date: str, check_out_date: str):
     """
-    Search hotels using SerpAPI (Google Hotels engine).
+    Search for hotels in a given location and date range.
     
     Args:
-        query (str): location/hoels extracted from the query .
-        check_in_date (str): Check-in date in 'YYYY-MM-DD' format.
-        check_out_date (str): Check-out date in 'YYYY-MM-DD' format.
-        
-    
-    Returns:
-        dict: A list of hotels with name, location, fare, ratings, reviews, and other details.
+        location (str): City or area to search hotels in.
+        check_in_date (str): Check-in date in YYYY-MM-DD format.
+        check_out_date (str): Check-out date in YYYY-MM-DD format.
+        guests (int): Number of guests (default = 1).
     """
     url = "https://serpapi.com/search.json"
     params = {
         "api_key": API_KEY,
         "engine": "google_hotels",
-        "q": query,
+        "q": location,
         "check_in_date": check_in_date,
         "check_out_date": check_out_date,
         
