@@ -51,11 +51,5 @@ def google_search(location: str, check_in_date: str, check_out_date: str):
     
 
 
-if __name__ == "__main__":
-    API_KEY = "c21f3689b93c5f7125e847008e584a3dd7a197600fe1cfda46e9b89c39237b1a"   # 🔑 Replace with your SerpAPI key
-    query = "hotel in udaipur"
-    
-    search_results = google_search(query,"2025-10-01","2025-10-05")
-    
-    print("Top Search Results:", search_results)
+
     

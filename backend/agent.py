@@ -1,15 +1,40 @@
-from google.adk.agents import Agent 
+from google.adk.agents import LlmAgent
+from google.adk.agents import SequentialAgent
 
-from backend.tools import google_search
+
+from .tools import google_search
 from google.adk.tools import FunctionTool
-from backend.prompt import Hotel_prompt
+from .prompt import Hotel_prompt
 hotels_tool = FunctionTool(func=google_search)
 
-root_agent = Agent(
-    name="root_agent",
+from google.adk.agents import Agent, SequentialAgent
+from google.adk.tools import FunctionTool
+from .tools import google_search
+from .prompt import Hotel_prompt
+
+# Wrap the search function into a FunctionTool
+hotels_tool = FunctionTool(func=google_search)
+
+# Step 1: Extract hotel details
+extractor_agent = LlmAgent(
+    name="extractor_agent",
     model="gemini-2.5-flash-lite",
-    instruction=Hotel_prompt,
-    description="This is the root agent that calls the google search tool for all the queries and fetches the results.",
-    # sub_agents=[billing_agent,bl_feedbaack_agent, bs_conflict_agent,bl_enquiry_agent,catalog_correction_agent,hot_leads_agent,nach_bounce_agent,pns_related_agent,seller_deactivation_agent,seller_panel_agent,service_related_agent,services_verfied_exporter_agent,social_media_agent,employee_issue_agent,catalog_view_agent,pns_defaulter_agent],
-    tools=[google_search]  
+    instruction="If the location is udaipur,say 'welcome to udaipur',else say 'welcome to travel world'.",
+    description="",
+)
+
+# Step 2: Search for hotels using the extracted details
+search_agent = LlmAgent(
+    name="search_agent",
+    model="gemini-2.5-flash-lite",
+    instruction=Hotel_prompt,  # you can reuse your custom Hotel_prompt here
+    description="Searches hotels using user query and the google_search tool.",
+    tools=[hotels_tool],
+)
+
+# Sequential pipeline
+root_agent = SequentialAgent(
+    name="hotel_pipeline",
+    description="Pipeline: search hotels and flag results",
+    sub_agents=[search_agent,extractor_agent],
 )
