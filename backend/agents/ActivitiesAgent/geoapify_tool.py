@@ -20,43 +20,54 @@ def geocode_location(location: str) -> dict:
 
 
 
-def get_activities(location: str, radius: int = 5000) -> dict:
+def get_activities(location: str, check_in_date: str, check_out_date: str) -> dict:
     """
     Fetch activities & attractions for a location using Geoapify.
-    Categories included: tourism, entertainment, sport.
+    Returns simplified JSON: ThingsToDo list.
+    
+    Parameters:
+    - location: City/state/country
+    - check_in_date, check_out_date: Dates for future hotel search
     """
     places_url = "https://api.geoapify.com/v2/places"
 
-    coords = geocode_location(location)
+    geo = geocode_location(location)
     params = {
         "categories": "tourism,entertainment,sport",
-        "filter": f"circle:{coords['lon']},{coords['lat']},{radius}",
-        "limit": 20,
+        "filter": f"circle:{geo['lon']},{geo['lat']},5000",
+        "limit": 5,
         "apiKey": GEOAPIFY_API_KEY,
     }
     resp = requests.get(places_url, params=params)
     resp.raise_for_status()
     data = resp.json()
-
-    # Normalize JSON: extract useful details
+    
     activities = []
     for feature in data.get("features", []):
         props = feature["properties"]
         activities.append({
             "name": props.get("name"),
-            "category": props.get("categories"),
+            "categories": props.get("categories", []),
             "address": props.get("formatted"),
-            "lat": feature["geometry"]["coordinates"][1],
-            "lon": feature["geometry"]["coordinates"][0],
+            "lat": props.get("lat"),
+            "lon": props.get("lon"),
+            "place_id": props.get("place_id"),
             "rating": props.get("rank"),
-            "details": {
-                "place_id": props.get("place_id"),
-                "datasource": props.get("datasource", {}).get("raw", {}),
-            }
+            "check_in_date": check_in_date,   # pass dates downstream
+            "check_out_date": check_out_date
         })
 
     return {
-        "location": location,
-        "coordinates": coords,
-        "activities": activities
+        "ThingsToDo": activities
     }
+
+
+
+
+
+if __name__ == "__main__":
+    # Simple test
+    location = "lucknow"
+    activities = get_activities(location)
+    print(activities)
+
