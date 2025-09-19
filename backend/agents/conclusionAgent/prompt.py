@@ -11,64 +11,67 @@ Skip the json if not provided.
 1. **Data Normalization**
    - Input data may come as raw text, semi-structured JSON, or inconsistent API responses.
    - Your job is to clean and normalize all input into a **well-structured JSON**.
-   - Always follow this schema:
+   - Always follow this schema inside each travel plan:
 
      {
-       "trip": {
-         "places": [
-           {
-             "name": "...",
-             "location": {"lat": ..., "lon": ...},
-             "details": {...},
-             "activities": [
-               {
-                 "name": "...",
-                 "cost_estimate": ...,
-                 "duration": "...",
-                 "extra": {...}
-               }
-             ]
-           }
-         ],
-         "hotels": [
-           {
-             "name": "...",
-             "location": {"lat": ..., "lon": ...},
-             "price_per_night": ...,
-             "rating": ...,
-             "amenities": [...],
-             "extra": {...}
-           }
-         ],
-         "restaurants": [
-           {
-             "name": "...",
-             "location": {"lat": ..., "lon": ...},
-             "average_cost": ...,
-             "cuisine": "...",
-             "rating": ...,
-             "extra": {...}
-           }
-         ],
-         "shopping": [
-           {
-             "name": "...",
-             "location": {"lat": ..., "lon": ...},
-             "category": "...",
-             "price_range": "...",
-             "extra": {...}
-           }
-         ],
-         "rentals": [
-           {
-             "type": "...",
-             "provider": "...",
-             "price_per_day": ...,
-             "location": {"lat": ..., "lon": ...},
-             "extra": {...}
-           }
-         ]
-       }
+       "plan_id": <number 1-3>,
+       "plan_name": "...",
+       "total_estimated_cost": <number>,
+       "breakdown": {
+         "accommodation": <number>,
+         "activities": <number>,
+         "food": <number>,
+         "rentals": <number>,
+         "shopping": <number>
+       },
+       "places": [
+         {
+           "name": "...",
+           "location": {"address": ...},
+           "details": {...},
+           "activities": [
+             {
+               "name": "...",
+               "cost_estimate": ...,
+               "duration": "...",
+             }
+           ]
+         }
+       ],
+       "hotels": [
+         {
+           "name": "...",
+           "location": {"address": ...},
+           "price_per_night": ...,
+           "rating": ...,
+           "amenities": [...],
+         }
+       ],
+       "restaurants": [
+         {
+           "name": "...",
+           "location": {"address": ...},
+           "average_cost": ...,
+           "rating": ...,
+         }
+       ],
+       "shopping": [
+         {
+           "name": "...",
+           "location": {"address": ...},
+           "category": "...",
+           "price_range": "...",
+         }
+       ],
+       "rentals": [
+         {
+           "type": "...",
+           "provider": "...",
+           "price_per_day": ...,
+           "location": {"address": ...},
+         }
+       ],
+       "description": "..."
      }
 
    - If any field is missing, set its value to `null`.
@@ -87,55 +90,17 @@ Skip the json if not provided.
 
 ---
 
-3. **Generate 5 Travel Plans**
-   - Always produce **five distinct travel plans** with increasing affordability:
+3. **Generate 3 Travel Plans**
+   - Always produce **three distinct travel plans** with increasing affordability:
      1. `"Luxury Escape"` → Premium hotels, fine dining, expensive activities
-     2. `"Premium Comfort"` → High-quality but slightly less expensive
-     3. `"Balanced Traveler"` → Balanced comfort and budget
-     4. `"Budget Explorer"` → Budget hotels, moderate food, free/cheap activities
-     5. `"Economy Saver"` → Hostels, street food, minimal paid activities
-
-   - Each plan must be a JSON object with this format:
-
-     {
-       "plan_id": <number 1-5>,
-       "plan_name": "...",
-       "total_estimated_cost": <number>,
-       "currency": "INR",
-       "breakdown": {
-         "accommodation": <number>,
-         "activities": <number>,
-         "food": <number>,
-         "rentals": <number>,
-         "shopping": <number>
-       },
-       "details": {
-         "places_to_visit": [...],
-         "activities": [...],
-         "hotel": {...},
-         "restaurants": [...],
-         "rentals": [...],
-         "shopping": [...]
-       },
-       "description": "..."
-     }
+     2. `"Balanced Traveler"` → Mid-range hotels, mix of paid and free activities, balanced costs
+     3. `"Economy Saver"` → Hostels or budget stays, street food, mostly free activities
 
 ---
 
 ### Final Output
-- Always return a **single JSON object** with two top-level keys:
-  1. `"structured_data"` → normalized version of all inputs
-  2. `"trip_plans"` → list of 5 structured plans
-
-Example:
+- Always return a **single JSON object** with:
 {
-  "structured_data": {...},
-  "trip_plans": [
-    {... Luxury Escape ...},
-    {... Premium Comfort ...},
-    {... Balanced Traveler ...},
-    {... Budget Explorer ...},
-    {... Economy Saver ...}
-  ]
+  "trip_plans": [ <plan1>, <plan2>, <plan3> ]
 }
 """

@@ -35,7 +35,7 @@ def get_activities(location: str, check_in_date: str, check_out_date: str) -> di
     params = {
         "categories": "tourism,entertainment,sport",
         "filter": f"circle:{geo['lon']},{geo['lat']},5000",
-        "limit": 5,
+        "limit": 4,
         "apiKey": GEOAPIFY_API_KEY,
     }
     resp = requests.get(places_url, params=params)

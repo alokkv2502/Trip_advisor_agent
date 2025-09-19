@@ -34,6 +34,7 @@ def search_places_in_place(place_id: str, category="accommodation.hotel"):
         "categories": category,
         "filter": f"place:{place_id}",
         "apiKey": GEOAPIFY_API_KEY,
+
     }
     try:
         response = requests.get(url, params=params)
@@ -100,7 +101,7 @@ def find_hotels(lat:str, lon:str, check_in_date: str, check_out_date: str) -> di
     params = {
         "categories": "accommodation.hotel",
         "filter": f"circle:{lon},{lat},3000",
-        "limit": 5,
+        "limit": 1,
         "apiKey": GEOAPIFY_API_KEY,
     }
 

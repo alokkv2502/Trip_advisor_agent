@@ -30,24 +30,11 @@ Always return **only JSON**, with the following schema:
     {
       "name": "<restaurant name>",
       "description": "<short description>",
-      "property_token": "<unique token or id>",
-      "gps_coordinates": {
-        "lat": <latitude>,
-        "lon": <longitude>,
-        "place_id": "<Geoapify place_id>"
-      },
+      "address": "<full address>",
       "cuisine_type": ["<cuisine1>", "<cuisine2>"],
       "overall_rating": <rating>,
-      "reviews": <number of reviews>,
-      "ratings_breakdown": {
-        "food": <float>,
-        "service": <float>,
-        "ambience": <float>,
-        "value": <float>
-      },
       "price_level": "<$ / $$ / $$$>",
       "opening_hours": "<opening hours if available>",
-      "nearby_places": ["<place1>", "<place2>"]
     }
   ]
 }

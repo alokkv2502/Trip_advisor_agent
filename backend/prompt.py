@@ -87,25 +87,15 @@ The response must be **JSON only**, structured like this:
     {
       "name": "<hotel name>",
       "description": "<hotel description>",
-      "property_token": "<unique token or id>",
       "gps_coordinates": {
         "lat": <latitude>,
         "lon": <longitude>,
         "place_id": "<Geoapify place_id>"
       },
+      "address": "<full address>",
       "rate_per_night": "<price per night>",
-      "total_rate": "<total price for stay>",
       "nearby_places": ["<place1>", "<place2>"],
-      "hotel_class": "<star rating>",
       "overall_rating": <rating>,
-      "reviews": <number of reviews>,
-      "ratings_breakdown": {
-        "cleanliness": <float>,
-        "service": <float>,
-        "location": <float>,
-        "value": <float>
-      },
-      "location_rating": <float>,
       "amenities": ["<amenity1>", "<amenity2>", "..."]
     }
   ]

@@ -11,7 +11,7 @@ activities_tool = FunctionTool(func=get_activities)
 # Activities Agent
 activities_agent = LlmAgent(
     name="ActivitiesAgent",
-    model="gemini-2.5-flash",
+    model="gemini-2.0-flash",
     description="Suggests activities and places to visit using Geoapify API.",
     tools=[activities_tool],
     output_key="activities.json",

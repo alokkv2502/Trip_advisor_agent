@@ -35,7 +35,7 @@ def find_restaurants(lat: Optional[str]=None, lon: Optional[str]=None, place_nam
 
     params = {
         "categories": "catering.restaurant",
-        "limit": limit,
+        "limit": 1,
         "apiKey": GEOAPIFY_API_KEY,
     }
 
@@ -61,16 +61,17 @@ def find_restaurants(lat: Optional[str]=None, lon: Optional[str]=None, place_nam
         restaurants = []
         for feature in features:
             props = feature.get("properties", {})
-            geometry = feature.get("geometry", {})
-            coords = geometry.get("coordinates", [None, None])
+            # geometry = feature.get("geometry", {})
+            # coords = geometry.get("coordinates", [None, None])
 
             restaurant = {
                 "name": props.get("name", "Unnamed Restaurant"),
                 "address": props.get("formatted"),
-                "lat": coords[1],
-                "lon": coords[0],
-                "place_id": props.get("place_id"),
+                # "lat": coords[1],
+                # "lon": coords[0],
+                # "place_id": props.get("place_id"),
                 "categories": props.get("categories"),
+                "address": props.get("formatted"),
             }
             restaurants.append(restaurant)
 

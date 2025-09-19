@@ -22,7 +22,7 @@ hotels_tool = FunctionTool(func=find_hotels)
 # Step 2: Search for hotels using the extracted details
 hotels_agent = LlmAgent(
     name="find_hotels_agent",
-    model="gemini-2.5-flash",
+    model="gemini-2.0-flash",
     instruction=FindHotels_prompt,  # you can reuse your custom Hotel_prompt here
     description="Fetches hotels near a given location using lat/lon and check-in/check-out dates.",
     tools=[hotels_tool],
