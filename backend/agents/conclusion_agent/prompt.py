@@ -95,21 +95,71 @@ You are the Conclusion Agent for a Travel Planning system.
      - `4: "Budget Explorer"` → budget hotels, cheaper activities, moderate meals
      - `5: "Economy Saver"` → minimal cost, hostels, street food, cheapest options
 
-   - For each plan, provide:
+   - For each plan, provide ouput json:
      ```json
-     {
-       "plan_id": 1,
-       "plan_name": "Luxury Escape",
-       "total_estimated_cost": ...,
-       "breakdown": {
-         "accommodation": ...,
-         "activities": ...,
-         "food": ...,
-         "rentals": ...,
-         "shopping": ...
-       },
-       "description": "A premium trip designed for maximum comfort..."
-     }
+       {
+  "trip_plans": [
+    {
+      "plan_id": 1,
+      "plan_name": "Luxury Escape",
+      "total_estimated_cost": <number>,
+      "currency": "...",
+      "breakdown": {
+        "accommodation": <number>,
+        "activities": <number>,
+        "food": <number>,
+        "rentals": <number>,
+        "shopping": <number>
+      },
+      "details": {
+        "places_to_visit": [...],
+        "activities": [...],
+        "hotel": {...},
+        "restaurants": [...],
+        "rentals": [...],
+        "shopping": [...]
+      },
+      "description": "A premium trip designed for maximum comfort with luxury hotels, fine dining, and exclusive activities."
+    },
+    {
+      "plan_id": 2,
+      "plan_name": "Premium Comfort",
+      "total_estimated_cost": ...,
+      "currency": "...",
+      "breakdown": {...},
+      "details": {...},
+      "description": "High-quality travel plan offering comfort with slightly reduced costs compared to luxury."
+    },
+    {
+      "plan_id": 3,
+      "plan_name": "Balanced Traveler",
+      "total_estimated_cost": ...,
+      "currency": "...",
+      "breakdown": {...},
+      "details": {...},
+      "description": "Balanced plan with good comfort and affordability."
+    },
+    {
+      "plan_id": 4,
+      "plan_name": "Budget Explorer",
+      "total_estimated_cost": ...,
+      "currency": "...",
+      "breakdown": {...},
+      "details": {...},
+      "description": "Budget-friendly plan with affordable hotels, food, and activities."
+    },
+    {
+      "plan_id": 5,
+      "plan_name": "Economy Saver",
+      "total_estimated_cost": ...,
+      "currency": "...",
+      "breakdown": {...},
+      "details": {...},
+      "description": "Minimal cost plan with hostels, street food, and free attractions."
+    }
+  ]
+}
+
      ```
 
 ---
