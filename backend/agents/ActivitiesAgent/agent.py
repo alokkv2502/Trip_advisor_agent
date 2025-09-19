@@ -3,7 +3,7 @@
 from google.adk.agents import LlmAgent
 from .geoapify_tool import get_activities
 from google.adk.tools import FunctionTool
-
+from .prompt import FindActivities_prompt
 # Initialize Geoapify Tool
 
 activities_tool = FunctionTool(func=get_activities)
@@ -11,37 +11,11 @@ activities_tool = FunctionTool(func=get_activities)
 # Activities Agent
 activities_agent = LlmAgent(
     name="ActivitiesAgent",
-    model="gemini-2.5-flash-lite",
+    model="gemini-2.0-flash",
     description="Suggests activities and places to visit using Geoapify API.",
     tools=[activities_tool],
-    output_key="activities",
-    instruction="""
-    Given a location (city, state, or country),
-    fetch activities, tourist attractions, and entertainment options using Geoapify API.
-
-    Input format:
-    {
-      "location": "<place>"
-    }
-
-    Output format:
-    {
-      "location": "<place>",
-      "coordinates": {"lat": <lat>, "lon": <lon>},
-      "activities": [
-        {
-          "name": "<place name>",
-          "category": "<category>",
-          "address": "<full address>",
-          "lat": <lat>,
-          "lon": <lon>,
-          "rating": "<if available>",
-          "details": "<if available>"
-        }
-      ]
-    }
-    """
-    
+    output_key="activities.json",
+    instruction=FindActivities_prompt,
     
 )
 root_agent = activities_agent
