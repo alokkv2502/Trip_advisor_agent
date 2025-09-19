@@ -10,7 +10,8 @@ from .prompt import FindHotels_prompt
 
 from .test import find_hotels
 from .agents.ActivitiesAgent.agent import root_agent as activities_agent
-
+from .agents.conclusionAgent.agent import root_agent as conclusion_agent
+from .agents.restaurants_agent.agent import root_agent as restaurants_agent
 
 # Wrap the search function into a FunctionTool
 hotels_tool = FunctionTool(func=find_hotels)
@@ -31,14 +32,17 @@ hotels_agent = LlmAgent(
 # Sequential pipeline
 activities_hotels_pipeline = SequentialAgent(
     name="ActivitiesHotelsPipeline",
-    sub_agents=[activities_agent, hotels_agent],
+    sub_agents=[activities_agent, hotels_agent, restaurants_agent, conclusion_agent],
     description="""
-Runs a sequential pipeline:
-1. Fetch top 5 activities using ActivitiesAgent
-2. For each activity, fetch nearby hotels using FindHotelsAgent
-3. Returns combined structured JSON for all activities and hotels
+Executes a structured travel planning pipeline:
+1. Uses the ActivitiesAgent to fetch the top 5 activities for the destination.
+2. For each activity, the HotelsAgent finds nearby hotels with key details (price, rating, amenities, location).
+3. The RestaurantsAgent enriches the hotel context by retrieving nearby dining options.
+4. The ConclusionAgent aggregates all results (activities, hotels, restaurants) into a clean, normalized JSON
+   and generates multiple travel plan variations (Luxury, Premium, Balanced, Budget, Economy).
 """
 )
+
 
 # For ADK tools compatibility, root agent
 root_agent = activities_hotels_pipeline
