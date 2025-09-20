@@ -4,6 +4,7 @@ import json
 import re
 import uuid
 from fastapi import FastAPI, APIRouter, HTTPException, Body
+from fastapi.middleware.cors import CORSMiddleware
 from google.adk.sessions import InMemorySessionService
 from google.adk.runners import Runner
 from google.genai import types
@@ -37,13 +38,22 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+# === ADDED: CORS Middleware Configuration ===
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"], # Your frontend's URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 router = APIRouter()
 
 @router.get("/health")
 async def health_check():
     return {"status": "ok"}
 
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDWz2wnDYV1eNDS3oOuYTamPkJiOHQmrrg"
+os.environ["GOOGLE_API_KEY"] = "AIzaSyAGqviMsS6DLU6bQWAkNTlYI1V51w3tWMg"
 
 # ---------------------------------------------------
 # Debug-friendly /process endpoint
