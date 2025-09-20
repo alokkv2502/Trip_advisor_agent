@@ -100,7 +100,7 @@ def find_hotels(lat:str, lon:str, check_in_date: str, check_out_date: str) -> di
     places_url = "https://api.geoapify.com/v2/places"
     params = {
         "categories": "accommodation.hotel",
-        "filter": f"circle:{lon},{lat},3000",
+        "filter": f"circle:{lon},{lat},10000",
         "limit": 1,
         "apiKey": GEOAPIFY_API_KEY,
     }
@@ -128,15 +128,17 @@ def find_hotels(lat:str, lon:str, check_in_date: str, check_out_date: str) -> di
 
         enriched_hotels = serp_result.get("results", [])
         for h in enriched_hotels:
-            # Inject lat, lon, and place_id into each SerpAPI hotel result
-            h.update({
-                "hotel_name": hotel_name,
+            hotels.append({
+                "name": h.get("name", hotel_name),
+                "description": h.get("description", ""),
+                "fare": h.get("fare", ""),
+                "reviews": h.get("reviews", 0),
+                "overall_rating": h.get("overall_rating", 0),
                 "address": address,
                 "lat": coords[1],
                 "lon": coords[0],
                 "place_id": place_id,
             })
-            hotels.append(h)
 
     return {"results": hotels}
 
@@ -144,6 +146,7 @@ def find_hotels(lat:str, lon:str, check_in_date: str, check_out_date: str) -> di
 
 # --- Example Run ---
 if __name__ == "__main__":
-    results = find_hotels("Sulem sarai, pryagraj, India", "2025-10-01", "2025-10-03")
+    results = find_hotels("18.921778", "72.8332848316978", "2025-10-01", "2025-10-03")
     for hotel in results.get("results", []):
         print(hotel)
+
