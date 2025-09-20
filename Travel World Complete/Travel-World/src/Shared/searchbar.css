@@ -1,0 +1,136 @@
+/* Main container for the search bar */
+.search-bar-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem 2.5rem;
+    background-color: #fff;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Flexbox container for the form inputs */
+.search-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Styling for each input group (icon + label + input) */
+.search-input-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    border-right: 1px solid #ccc;
+    padding-right: 1.5rem;
+}
+
+/* Specific styling for the date input group */
+.date-input-group .search-input {
+    flex-direction: column; /* Stack label and date inputs */
+}
+
+.date-input-group .date-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between the two date inputs */
+}
+
+.date-input-group .date-inputs input {
+    /* Style for individual date fields */
+    flex: 1;
+}
+
+.date-input-group .date-inputs span {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Remove border from the last input group */
+.search-input-group:last-of-type {
+    border-right: none;
+    padding-right: 0;
+}
+
+/* Styling for labels, inputs, and select */
+.search-input-group label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.search-input-group input,
+.search-input-group select {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: #333;
+    padding: 0.2rem 0;
+}
+
+.search-input-group input::placeholder {
+    color: #999;
+}
+
+/* Styling for icons */
+.search-icon {
+    font-size: 1.2rem;
+    color: #f7a047;
+}
+
+/* Styling for the search button */
+.search-button {
+    background-color: #f7a047;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.search-button i {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.search-button:hover {
+    background-color: #e59441;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .search-bar-container {
+        padding: 1rem;
+    }
+
+    .search-form {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .search-input-group {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+        padding-right: 0;
+        padding-bottom: 1rem;
+    }
+
+    .search-input-group:last-of-type {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .search-button {
+        width: 100%;
+        border-radius: 8px;
+    }
+}
